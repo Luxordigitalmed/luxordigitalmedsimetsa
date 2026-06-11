@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simetsa, S.L. — Servicio Técnico Industrial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#F7B500;
+    --accent-ink:#141414;
+    --black:#0C0D10;
+    --ink:#15161B;
+    --body:#3d3f46;
+    --muted:#73757d;
+    --paper:#F2F2EF;
+    --line:#E4E4DF;
+    --radius:10px;
+    --radius-sm:6px;
+    --font:'Archivo',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  section[id],footer[id],[id="repuestos"]{scroll-margin-top:84px;}
+  body{font-family:var(--font);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;}
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 36px;}
+  .eyebrow{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
+  h2.sect{font-size:26px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;}
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:14px 22px;border-radius:var(--radius-sm);cursor:pointer;border:none;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn-yellow{background:var(--accent);color:var(--accent-ink);}
+  .btn-yellow:hover{box-shadow:0 6px 18px rgba(247,181,0,.35);}
+  .btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+  .arrow{font-weight:800;}
+
+  /* ============ HEADER ============ */
+  header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);}
+  .hd{display:flex;align-items:center;gap:32px;height:72px;}
+  .logo{display:flex;align-items:center;gap:12px;}
+  .logo-name{font-size:24px;font-weight:900;letter-spacing:.04em;line-height:1;}
+  .logo-sub{font-size:9.5px;font-weight:700;letter-spacing:.22em;color:var(--muted);margin-top:3px;display:block;}
+  nav.main{display:flex;gap:4px;margin-left:auto;}
+  nav.main a{font-size:13px;font-weight:700;letter-spacing:.06em;padding:10px 13px;border-radius:6px;color:var(--ink);position:relative;}
+  nav.main a:hover{background:var(--paper);}
+  nav.main a.active{color:var(--ink);}
+  nav.main a.active::after{content:"";position:absolute;left:13px;right:13px;bottom:4px;height:3px;background:var(--accent);border-radius:2px;}
+  .hd-cta{display:flex;align-items:center;gap:12px;background:var(--accent);border-radius:var(--radius-sm);padding:9px 18px;}
+  .hd-cta svg{flex:none;}
+  .hd-cta .l1{font-size:10px;font-weight:800;letter-spacing:.1em;display:block;}
+  .hd-cta .l2{font-size:17px;font-weight:900;letter-spacing:.02em;line-height:1.1;display:block;}
+
+  /* ============ HERO ============ */
+  .hero{background:var(--black);color:#fff;position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;}
+  .hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg, rgba(8,10,16,.97) 0%, rgba(8,10,16,.93) 34%, rgba(8,10,16,.6) 52%, rgba(8,10,16,.08) 72%, rgba(8,10,16,0) 85%), linear-gradient(0deg, rgba(8,10,16,.35), rgba(8,10,16,0) 30%);}
+  .hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:500px 1fr;gap:48px;align-items:center;min-height:620px;padding-top:64px;padding-bottom:64px;}
+  .hero h1{font-size:54px;line-height:1.02;font-weight:900;letter-spacing:.005em;text-transform:uppercase;margin:18px 0 20px;text-wrap:balance;}
+  .hero p.lede{font-size:16.5px;line-height:1.55;color:#c9cbd2;max-width:44ch;}
+  ul.checks{list-style:none;margin:26px 0 32px;display:grid;gap:13px;}
+  ul.checks li{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;color:#e8e9ec;}
+  .chk{flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--accent);display:grid;place-items:center;}
+  .chk svg{display:block;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+
+  /* ============ BRANDS STRIP ============ */
+  .brands{background:var(--black);border-top:1px solid rgba(255,255,255,.08);color:#fff;}
+  .brands .wrap{display:flex;align-items:center;gap:40px;padding-top:18px;padding-bottom:18px;flex-wrap:wrap;}
+  .brands .lbl{font-size:11px;font-weight:800;letter-spacing:.16em;color:#9a9ca4;text-transform:uppercase;}
+  .brand-item{display:flex;align-items:baseline;gap:10px;}
+  .brand-item b{font-size:19px;font-weight:900;letter-spacing:.08em;}
+  .brand-item span{font-size:12px;color:#9a9ca4;font-weight:500;}
+  .brands .since{margin-left:auto;font-size:12px;font-weight:600;color:#9a9ca4;letter-spacing:.06em;text-transform:uppercase;}
+  .brands .since b{color:var(--accent);font-size:14px;}
+
+  /* ============ SERVICES ============ */
+  .services{background:var(--paper);padding:56px 0 64px;}
+  .cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:26px;}
+  .card{background:#fff;border:none;border-radius:0;padding:18px 0;overflow:hidden;display:flex;flex-direction:column;gap:14px;transition:box-shadow .2s ease, transform .2s ease;}
+  .card:hover{box-shadow:0 12px 28px rgba(12,13,16,.10);transform:translateY(-3px);}
+  .card-head{display:flex;align-items:center;gap:12px;padding:0 18px;}
+  .icon-chip{flex:none;width:38px;height:38px;border-radius:8px;background:rgba(247,181,0,.15);display:grid;place-items:center;color:#b07f00;}
+  .card-head h3{font-size:15px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;}
+  .img-frame{position:relative;aspect-ratio:16/9;overflow:hidden;width:100%;}
+  .img-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .img-frame.contain img{object-fit:contain;background:#fff;}
+  .card p{font-size:13.5px;line-height:1.55;color:var(--body);flex:1;padding:0 18px;}
+  .card .more{font-size:12px;font-weight:800;letter-spacing:.08em;color:#1a56c4;display:inline-flex;align-items:center;gap:6px;padding:0 18px;}
+  .card .more:hover{gap:10px;}
+
+  /* ============ MACHINERY ============ */
+  .machinery{padding:56px 0 64px;}
+  .mach-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;}
+  .mach-head a{font-size:13px;font-weight:800;letter-spacing:.06em;color:#1a56c4;display:inline-flex;gap:8px;align-items:center;}
+  .mach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:30px;}
+  .mach-col{padding:28px 0 30px;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;}
+  .mach-col h3{font-size:16px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:0 26px;}
+  .mach-col .img-frame{aspect-ratio:16/9;}
+  .mach-col ul{list-style:none;display:grid;gap:9px;text-align:left;width:100%;padding:0 26px;box-sizing:border-box;}
+  .mach-col li{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--body);}
+  .mach-col li .chk{width:18px;height:18px;border-color:#b9bbc0;color:#6c6e75;}
+  .mach-col .btn-outline{margin-top:auto;font-size:11.5px;font-weight:800;letter-spacing:.08em;padding:10px 20px;border:1.5px solid #c9cbcf;border-radius:var(--radius-sm);background:#fff;cursor:pointer;transition:border-color .15s,background .15s;font-family:var(--font);}
+  .mach-col .btn-outline:hover{border-color:var(--accent);background:rgba(247,181,0,.08);}
+  .mach-note{margin-top:22px;font-size:13.5px;color:var(--body);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 18px;line-height:1.5;}
+  .mach-note b{color:var(--ink);}
+
+  /* ============ PROCESS ============ */
+  .process{background:var(--black);color:#fff;padding:52px 0 58px;}
+  .steps{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:36px;}
+  .step{text-align:center;position:relative;padding:0 8px;}
+  .step .ic{width:58px;height:58px;margin:0 auto 16px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#fff;background:rgba(255,255,255,.04);transition:border-color .4s ease, background .4s ease;}
+  .step.is-visible .ic{border-color:rgba(247,181,0,.6);background:rgba(247,181,0,.07);}
+  .step .num{position:absolute;top:-6px;left:calc(50% - 44px);width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:900;display:grid;place-items:center;}
+  .step h4{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+  .step p{font-size:12.5px;line-height:1.5;color:#a7a9b0;}
+  .step:not(:last-child)::after{content:"› › ›";position:absolute;top:22px;right:-16px;color:rgba(255,255,255,.3);font-size:13px;letter-spacing:2px;font-weight:700;}
+
+  @media (prefers-reduced-motion: no-preference) {
+    .step{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .5s ease, transform .5s ease;
+    }
+    .step.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+    .process h2.sect{
+      opacity:0;
+      transform:translateY(10px);
+      transition:opacity .45s ease, transform .45s ease;
+    }
+    .process h2.sect.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+  }
+
+  /* ============ PARTS FINDER ============ */
+  .finder{display:grid;grid-template-columns:320px 1fr;background:var(--paper);}
+  .finder-img{background:#111;width:100%;aspect-ratio:9/16;position:relative;overflow:hidden;}
+  .finder-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .finder-body{padding:44px 56px 40px;display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:start;}
+  .finder-body h2{font-size:26px;font-weight:900;letter-spacing:.02em;text-transform:uppercase;line-height:1.15;}
+  .finder-body .sub{margin-top:14px;font-size:13.5px;line-height:1.6;color:var(--body);}
+  .tabs{display:flex;gap:34px;border-bottom:1px solid var(--line);}
+  .tab{font-family:var(--font);font-size:13px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;background:none;border:none;padding:6px 2px 13px;cursor:pointer;color:var(--muted);position:relative;}
+  .tab.active{color:var(--ink);}
+  .tab.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--accent);}
+  .search-row{display:flex;gap:0;margin-top:24px;}
+  .search-box{flex:1;display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #d7d8d4;border-right:none;border-radius:var(--radius-sm) 0 0 var(--radius-sm);padding:0 18px;}
+  .search-box input{flex:1;border:none;outline:none;font-family:var(--font);font-size:14.5px;padding:16px 0;background:transparent;color:var(--ink);}
+  .search-box input::placeholder{color:#a3a5aa;}
+  .btn-search{border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:0 28px;}
+  .finder-feats{grid-column:1 / -1;display:flex;gap:36px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;margin-top:6px;}
+  .feat{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--body);}
+  .feat svg{color:#8a8c93;}
+  .finder-result{grid-column:1 / -1;display:none;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--radius-sm);padding:14px 18px;font-size:14px;color:var(--body);}
+  .finder-result.show{display:flex;}
+  .finder-result b{color:var(--ink);}
+
+  /* ============ CENTER ============ */
+  .center{background:var(--black);color:#fff;padding:48px 0;}
+  .center .wrap{display:grid;grid-template-columns:300px 1fr;gap:44px;align-items:stretch;}
+  .center h2{font-size:24px;font-weight:900;letter-spacing:.02em;text-transform:uppercase;}
+  .center p.sub{margin-top:14px;font-size:14px;line-height:1.6;color:#b9bbc2;}
+  .center-stats{display:grid;grid-template-columns:1fr 1fr;gap:22px 18px;margin-top:30px;}
+  .stat .v{font-size:20px;font-weight:900;color:var(--accent);}
+  .stat .k{font-size:11.5px;font-weight:600;letter-spacing:.04em;color:#a7a9b0;margin-top:3px;line-height:1.35;}
+  .center-pics{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+  .pic{position:relative;border-radius:0;overflow:hidden;aspect-ratio:9/16;}
+  .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .pic figcaption{position:absolute;left:0;right:0;bottom:0;padding:24px 12px 10px;font-size:12px;font-weight:600;text-align:center;background:linear-gradient(transparent,rgba(0,0,0,.82));pointer-events:none;}
+
+  /* ============ FOOTER ============ */
+  footer{background:#fff;}
+  .ft{display:grid;grid-template-columns:1.1fr 1.1fr 1fr 1.1fr;gap:40px;padding:48px 0 44px;}
+  .ft h5{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px;}
+  .ft p{font-size:13.5px;line-height:1.6;color:var(--body);}
+  .ft .row{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--body);line-height:1.5;}
+  .ft .col-rows{display:grid;gap:12px;}
+  .ft .row svg{flex:none;margin-top:1px;color:#8a8c93;}
+  .ft .row a:hover{color:var(--ink);text-decoration:underline;}
+  .ft .btn{margin-top:16px;}
+  .btn-dark{background:var(--black);color:#fff;}
+  .btn-dark:hover{box-shadow:0 6px 18px rgba(12,13,16,.3);}
+  .ft ul.plain{list-style:none;display:grid;gap:12px;}
+  .ft ul.plain b{display:block;font-size:13.5px;color:var(--ink);}
+  .ft ul.plain span{font-size:12.5px;color:var(--muted);}
+  .legal{border-top:1px solid var(--line);padding:18px 0;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--muted);}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1100px){
+    .hero .wrap{grid-template-columns:1fr;min-height:0;}
+    .hero-shade{background:rgba(8,10,16,.82);}
+    .cards4,.mach-grid,.steps{grid-template-columns:repeat(2,1fr);}
+    .mach-col{border-bottom:1px solid var(--line);}
+    .step:not(:last-child)::after{display:none;}
+    .step{margin-bottom:24px;}
+    .finder{grid-template-columns:1fr;}
+    .finder-img{display:block;width:100%;aspect-ratio:9/16;}
+    .finder-body{grid-template-columns:1fr;padding:36px;}
+    .center .wrap{grid-template-columns:1fr;}
+    .center-pics{grid-template-columns:repeat(2,1fr);}
+    .pic{aspect-ratio:9/16;}
+    .ft{grid-template-columns:1fr 1fr;}
+    nav.main{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="wrap hd">
+    <a class="logo" href="#inicio" aria-label="Simetsa, inicio">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <path d="M20 2 L36 11 V29 L20 38 L4 29 V11 Z" fill="#0C0D10"/>
+        <path d="M26.5 12.5 C24.5 11 16 10.5 15 14.5 C14.2 17.7 19 18.6 22 19.4 C25.5 20.3 27 21.5 26.3 24.4 C25.4 28.2 16.5 28.5 13.5 26.5" stroke="#F7B500" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span>
+        <span class="logo-name">SIMETSA</span>
+        <span class="logo-sub">SERVICIO TÉCNICO INDUSTRIAL</span>
+      </span>
+    </a>
+    <nav class="main" aria-label="Menú principal">
+      <a class="active" href="#inicio">INICIO</a>
+      <a href="#servicios">SERVICIOS</a>
+      <a href="#maquinaria">MAQUINARIA</a>
+      <a href="#repuestos">REPUESTOS</a>
+      <a href="#taller">TALLER</a>
+      <a href="#contacto">CONTACTO</a>
+    </nav>
+    <a class="hd-cta" href="tel:977545311">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round"/></svg>
+      <span>
+        <span class="l1">ASISTENCIA TÉCNICA</span>
+        <span class="l2">977 54 53 11</span>
+      </span>
+    </a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="inicio">
+  <img class="hero-bg" src="assets/hero-bg.png" alt="" aria-hidden="true">
+  <div class="hero-shade"></div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">EXPERIENCIA. TECNOLOGÍA. COMPROMISO.</span>
+      <h1>Servicio técnico para maquinaria pesada</h1>
+      <p class="lede">Reparación, mantenimiento y suministro de repuestos para maquinaria de obras públicas, construcción e industria. Más de 30 años de experiencia en Tarragona.</p>
+      <ul class="checks">
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#F7B500" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Mecánica, eléctrica, hidráulica y soldadura</li>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#F7B500" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Asistencia en taller y en obra con taller móvil equipado</li>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#F7B500" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Repuestos originales de las principales marcas</li>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#F7B500" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Servicio oficial JCB, Caterpillar y Dulevo</li>
+      </ul>
+      <div class="hero-actions">
+        <a class="btn btn-yellow" href="#contacto">Solicitar asistencia <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="tel:977545311">Hablar con un técnico <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BRANDS ================= -->
+<div class="brands">
+  <div class="wrap">
+    <span class="lbl">Servicio oficial</span>
+    <span class="brand-item"><b>JCB</b><span>Excavadoras y palas</span></span>
+    <span class="brand-item"><b>CATERPILLAR</b><span>Carretillas elevadoras</span></span>
+    <span class="brand-item"><b>DULEVO</b><span>Barredoras industriales</span></span>
+    <span class="since"><b>+30</b> años de experiencia</span>
+  </div>
+</div>
+
+<!-- ================= SERVICES ================= -->
+<section class="services" id="servicios">
+  <div class="wrap">
+    <h2 class="sect">Nuestros servicios</h2>
+    <div class="cards4">
+      <article class="card">
+        <div class="card-head">
+          <span class="icon-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4.5 4.5 0 0 0-6 5.6L3 17.6 a2 2 0 0 0 2.8 2.8 L11.5 14.7a4.5 4.5 0 0 0 5.6-6 l-2.6 2.6-2.5-2.5z"/></svg></span>
+          <h3>Reparación</h3>
+        </div>
+        <div class="img-frame"><img src="assets/serv-reparacion.png" alt="Reparación de maquinaria"></div>
+        <p>Reparaciones mecánicas, eléctricas, hidráulicas y de soldadura de todo tipo de averías, con reacondicionado y pintado.</p>
+        <a class="more" href="#proceso">VER MÁS <span class="arrow">→</span></a>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="icon-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.5-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.5 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.5 2.4-1a7 7 0 0 0 2 1.2L10 21h4l.5-2.6a7 7 0 0 0 2-1.2l2.4 1 2-3.5-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></span>
+          <h3>Mantenimiento</h3>
+        </div>
+        <div class="img-frame"><img src="assets/serv-mantenimiento.png" alt="Mantenimiento preventivo"></div>
+        <p>Planes de mantenimiento preventivo y correctivo, en nuestras instalaciones o en obra, para reducir paradas y alargar la vida útil.</p>
+        <a class="more" href="#proceso">VER MÁS <span class="arrow">→</span></a>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="icon-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 L12 3 3 8 v8 l9 5 9-5z"/><path d="M3 8 l9 5 9-5 M12 13 v8"/></svg></span>
+          <h3>Repuestos</h3>
+        </div>
+        <div class="img-frame"><img src="assets/serv-repuestos.png" alt="Repuestos de maquinaria"></div>
+        <p>Stock de repuestos originales y alternativos de las principales marcas, con asesoramiento técnico para cada máquina.</p>
+        <a class="more" href="#repuestos">VER MÁS <span class="arrow">→</span></a>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="icon-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16 V9 h6 l2-4 h5 v11"/><circle cx="7" cy="17.5" r="2"/><circle cx="16" cy="17.5" r="2"/><path d="M9 17.5 h5 M18 17.5 h3 v-5 l-3-3"/></svg></span>
+          <h3>Venta de maquinaria</h3>
+        </div>
+        <div class="img-frame"><img src="assets/serv-venta.png" alt="Venta de maquinaria"></div>
+        <p>Asesoramiento en la adquisición de máquinas nuevas y de ocasión, revisadas y garantizadas para todo tipo de trabajos.</p>
+        <a class="more" href="#contacto">VER MÁS <span class="arrow">→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MACHINERY ================= -->
+<section class="machinery" id="maquinaria">
+  <div class="wrap">
+    <div class="mach-head">
+      <h2 class="sect">Maquinaria con la que trabajamos</h2>
+      <a href="#contacto">CONSÚLTANOS TU MÁQUINA <span class="arrow">→</span></a>
+    </div>
+    <div class="mach-grid">
+      <div class="mach-col">
+        <h3>Excavación</h3>
+        <div class="img-frame contain"><img src="assets/maq-excavadoras.png" alt="Excavadora"></div>
+        <ul>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Excavadoras de cadenas</li>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Excavadoras de ruedas</li>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Retrocargadoras y minis</li>
+        </ul>
+        <button class="btn-outline" type="button">VER SERVICIOS</button>
+      </div>
+      <div class="mach-col">
+        <h3>Cargas y elevación</h3>
+        <div class="img-frame contain"><img src="assets/maq-cargadoras.png" alt="Cargadora"></div>
+        <ul>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Palas cargadoras</li>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Carretillas elevadoras</li>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Manipuladores telescópicos</li>
+        </ul>
+        <button class="btn-outline" type="button">VER SERVICIOS</button>
+      </div>
+      <div class="mach-col">
+        <h3>Compactación</h3>
+        <div class="img-frame contain"><img src="assets/maq-compactacion.png" alt="Compactador"></div>
+        <ul>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Rodillos vibrantes</li>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Compactadores de neumáticos</li>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Placas y apisonadoras</li>
+        </ul>
+        <button class="btn-outline" type="button">VER SERVICIOS</button>
+      </div>
+      <div class="mach-col">
+        <h3>Trituración</h3>
+        <div class="img-frame contain"><img src="assets/maq-trituracion.png" alt="Trituradora"></div>
+        <ul>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Machacadoras de mandíbulas</li>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Cribadoras</li>
+          <li><span class="chk"><svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5 L4.8 9 L10 3"/></svg></span>Cintas transportadoras</li>
+        </ul>
+        <button class="btn-outline" type="button">VER SERVICIOS</button>
+      </div>
+    </div>
+    <p class="mach-note"><b>También trabajamos con:</b> implementos hidráulicos (martillos rompe-rocas, fresadoras, barrenadoras, grúas sobre camión), barredoras y fregadoras de limpieza industrial y vial, y equipos de tratamiento y recogida selectiva de materias orgánicas.</p>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section class="process" id="proceso">
+  <div class="wrap">
+    <h2 class="sect">Nuestro proceso de trabajo</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="num">1</span>
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19v1a2 2 0 0 1-2 2h-3"/></svg></span>
+        <h4>Solicitud</h4>
+        <p>Nos contactas por teléfono, e-mail o formulario.</p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3 M8 11.5l2 2 3.5-4"/></svg></span>
+        <h4>Diagnóstico</h4>
+        <p>Diagnóstico técnico de la avería, en taller o en obra.</p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l4 4v16H6z"/><path d="M14.5 9.5a2.4 2.4 0 0 0-4 1.8 2.4 2.4 0 0 0 4 1.8 M9 11.5h3.5"/></svg></span>
+        <h4>Presupuesto</h4>
+        <p>Te enviamos una propuesta clara y sin compromiso.</p>
+      </div>
+      <div class="step">
+        <span class="num">4</span>
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4.5 4.5 0 0 0-6 5.6L3 17.6 a2 2 0 0 0 2.8 2.8 L11.5 14.7a4.5 4.5 0 0 0 5.6-6 l-2.6 2.6-2.5-2.5z"/></svg></span>
+        <h4>Reparación</h4>
+        <p>Reparación con repuestos de calidad y técnicos cualificados.</p>
+      </div>
+      <div class="step">
+        <span class="num">5</span>
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3.5h6 M9 9l1.5 1.5L13.5 8 M9 14.5l1.5 1.5 3-2.5"/></svg></span>
+        <h4>Pruebas</h4>
+        <p>Verificamos el correcto funcionamiento de la máquina.</p>
+      </div>
+      <div class="step">
+        <span class="num">6</span>
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h11v10H2z M13 10h4l3 3v4h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg></span>
+        <h4>Entrega</h4>
+        <p>Entrega de la máquina lista para trabajar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PARTS FINDER ================= -->
+<section class="finder" id="repuestos">
+  <div class="finder-img">
+    <img src="assets/repuestos-almacen.png" alt="Almacén de repuestos">
+  </div>
+  <div class="finder-body">
+    <div>
+      <h2>Buscador<br>de repuestos</h2>
+      <p class="sub">Encuentra rápidamente el repuesto que necesitas. Busca por modelo de máquina, referencia o número de serie y te confirmamos disponibilidad.</p>
+    </div>
+    <div>
+      <div class="tabs" role="tablist">
+        <button class="tab active" type="button" data-ph="Ej: JCB 3CX, JS220LC, Cat DP25…">POR MODELO</button>
+        <button class="tab" type="button" data-ph="Ej: 540/170, 332/Y3478…">POR REFERENCIA</button>
+        <button class="tab" type="button" data-ph="Ej: nº de serie de la máquina…">POR NÚMERO DE SERIE</button>
+      </div>
+      <div class="search-row">
+        <div class="search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a3a5aa" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="finder-input" type="text" placeholder="Ej: JCB 3CX, JS220LC, Cat DP25…">
+        </div>
+        <button class="btn btn-yellow btn-search" id="finder-btn" type="button">Buscar</button>
+      </div>
+    </div>
+    <div class="finder-result" id="finder-result">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b07f00" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+      <span>Consulta recibida. Llámanos al <b>977 54 53 11</b> o escribe a <b>simetsa@simetsa.com</b> y te confirmamos disponibilidad y plazo de entrega.</span>
+    </div>
+    <div class="finder-feats">
+      <span class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 L12 3 3 8 v8 l9 5 9-5z M3 8 l9 5 9-5 M12 13 v8"/></svg>Repuestos originales y alternativos</span>
+      <span class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h11v10H2z M13 10h4l3 3v4h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg>Envío o recogida en taller</span>
+      <span class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/></svg>Asesoramiento técnico</span>
+      <span class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Garantía de calidad</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CENTER ================= -->
+<section class="center" id="taller">
+  <div class="wrap">
+    <div>
+      <h2>Nuestro centro técnico</h2>
+      <p class="sub">Instalaciones propias en el Polígono Industrial Riu Clar de Tarragona y taller móvil totalmente equipado para asistencia en obra.</p>
+      <div class="center-stats">
+        <div class="stat"><div class="v">+30</div><div class="k">Años de experiencia en el sector</div></div>
+        <div class="stat"><div class="v">3</div><div class="k">Marcas con servicio oficial</div></div>
+        <div class="stat"><div class="v">Taller móvil</div><div class="k">Totalmente equipado para obra</div></div>
+        <div class="stat"><div class="v">Taller propio</div><div class="k">Mecánica, eléctrica, hidráulica y soldadura</div></div>
+      </div>
+    </div>
+    <div class="center-pics">
+      <figure class="pic"><img src="assets/centro-taller-hq.png" alt="Taller de reparación"><figcaption>Taller de reparación</figcaption></figure>
+      <figure class="pic"><img src="assets/centro-bancos-hq.png" alt="Bancos de pruebas hidráulicos"><figcaption>Bancos de pruebas hidráulicos</figcaption></figure>
+      <figure class="pic"><img src="assets/centro-diagnostico-hq.png" alt="Diagnóstico electrónico"><figcaption>Diagnóstico electrónico</figcaption></figure>
+      <figure class="pic"><img src="assets/centro-almacen-hq.png" alt="Almacén de repuestos"><figcaption>Almacén de repuestos</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer id="contacto">
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <h5>¿Necesitas ayuda?</h5>
+        <p>Estamos listos para ayudarte con la reparación, el mantenimiento o los repuestos de tu maquinaria.</p>
+        <a class="btn btn-yellow" href="tel:977545311">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.6 2z"/></svg>
+          Llamar ahora · 977 54 53 11
+        </a>
+      </div>
+      <div>
+        <h5>Contacto</h5>
+        <div class="col-rows">
+          <div class="row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.6 2z"/></svg><span>Tel. <a href="tel:977545311">977 54 53 11</a> · Fax 977 54 93 99</span></div>
+          <div class="row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg><span><a href="mailto:simetsa@simetsa.com">simetsa@simetsa.com</a></span></div>
+          <div class="row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Pol. Ind. Riu Clar, C/ Granit, 16-18, nau 24<br>43006 Tarragona</span></div>
+        </div>
+      </div>
+      <div>
+        <h5>Marcas oficiales</h5>
+        <ul class="plain">
+          <li><b>JCB</b><span>Excavadoras y palas</span></li>
+          <li><b>Caterpillar</b><span>Carretillas elevadoras</span></li>
+          <li><b>Dulevo</b><span>Barredoras y fregadoras industriales</span></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Asistencia técnica</h5>
+        <p>Asistencia en nuestras instalaciones o en obra con taller móvil, para minimizar el tiempo de parada de tu máquina.</p>
+        <a class="btn btn-dark" href="tel:977545311">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.6 2z"/></svg>
+          Asistencia urgente
+        </a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Servicios Industriales Mecánicos Tarragona, S.L. (Simetsa)</span>
+      <span>Aviso legal · Privacidad · www.simetsa.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Parts finder tabs
+  (function(){
+    var tabs = document.querySelectorAll('.tab');
+    var input = document.getElementById('finder-input');
+    tabs.forEach(function(t){
+      t.addEventListener('click', function(){
+        tabs.forEach(function(o){ o.classList.remove('active'); });
+        t.classList.add('active');
+        input.placeholder = t.getAttribute('data-ph');
+        input.focus();
+      });
+    });
+    var btn = document.getElementById('finder-btn');
+    var result = document.getElementById('finder-result');
+    function search(){ result.classList.add('show'); }
+    btn.addEventListener('click', search);
+    input.addEventListener('keydown', function(e){ if(e.key === 'Enter') search(); });
+  })();
+
+  // Process section motion: staggered fade + slide-up
+  (function(){
+    var prefersMotion = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    if (!prefersMotion) return;
+    var heading = document.querySelector('.process h2.sect');
+    var steps   = document.querySelectorAll('.step');
+    var seen = new Set();
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting || seen.has(en.target)) return;
+        seen.add(en.target);
+        var el = en.target;
+        var delay = el.dataset.stepDelay || 0;
+        setTimeout(function(){ el.classList.add('is-visible'); }, Number(delay));
+      });
+    }, { threshold: 0.15 });
+    if (heading) obs.observe(heading);
+    steps.forEach(function(s, i){
+      s.dataset.stepDelay = i * 90;
+      obs.observe(s);
+    });
+  })();
+
+  // Active nav highlight by scroll position, in document order
+  (function(){
+    var links = document.querySelectorAll('nav.main a');
+    var items = [];
+    links.forEach(function(l){
+      var el = document.getElementById(l.getAttribute('href').slice(1));
+      if (el) items.push({ link: l, el: el });
+    });
+    function update(){
+      var ref = window.scrollY + 120;
+      var current = items[0];
+      items.forEach(function(it){
+        if (it.el.offsetTop <= ref) current = it;
+      });
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) {
+        current = items[items.length - 1];
+      }
+      links.forEach(function(l){ l.classList.remove('active'); });
+      current.link.classList.add('active');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
+</body>
+</html>
